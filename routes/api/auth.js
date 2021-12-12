@@ -6,6 +6,10 @@ const { auth: ctrl } = require("../../controllers");
 
 const router = express.Router();
 
+router.get("/verify/:verifyToken", ctrlWrapper(ctrl.verify));
+
+router.post("/verify", ctrlWrapper(ctrl.resendEmail));
+
 router.post("/register", validation(joiSchema), ctrlWrapper(ctrl.register));
 
 router.post("/login", validation(joiSchema), ctrlWrapper(ctrl.login));
