@@ -19,8 +19,17 @@ const updateAvatar = async(req, res)=> {
         await fs.rename(tempPath, resultPath);
         const avatarURL = `avatars/${originalname}`;
         const user = await User.findByIdAndUpdate(_id, {avatarURL}, {new: true});
-        res.json(user)
 
+        res.json({
+            status: "success",
+            code: 200,
+            data: {
+                token: user.token,
+                email: user.email,
+                subscription: user.subscription,
+                avatarURL: user.avatarURL
+            }
+        })
     } catch (error) {
         await fs.unlink(tempPath)
     }
